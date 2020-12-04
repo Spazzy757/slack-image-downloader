@@ -16,15 +16,14 @@ def main():
 
 
 def get_images_from_channel(channel, mode):
+    headers={
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Authorization": SLACK_TOKEN
+    }
     res = requests.get(
         "%s/conversations.list" % SLACK_BASE_URL,
-        headers={
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Authorization": SLACK_TOKEN
-        },
-        params={
-            "types": mode
-        }
+        headers=headers,
+        params={"types": mode}
     )
     if res.status_code == 200:
         data = res.json().get("channels")
@@ -35,13 +34,13 @@ def get_images_from_channel(channel, mode):
                 print(ch.get("name"))
                 cursor = ""
                 while cursor is not None:
-                    res = requests.get(
-                        "%s/conversations.history?channel=%s&oldest=%s&limit=10000&cursor=%s" % (SLACK_BASE_URL, ch.get("id"), oldest, cursor),
-                        headers={
-                            "Content-Type": "application/x-www-form-urlencoded",
-                            "Authorization": SLACK_TOKEN
-                        }
+                    url = "%s/conversations.history?channel=%s&oldest=%s&limit=10000&cursor=%s" % (
+                        SLACK_BASE_URL,
+                        ch.get("id"),
+                        oldest,
+                        cursor
                     )
+                    res = requests.get(url, headers=headers)
                     if res.status_code == 200:
                         cursor = res.json().get("response_metadata", {}).get("next_cursor")
                         for p in res.json().get("messages"):
@@ -50,9 +49,7 @@ def get_images_from_channel(channel, mode):
                                     if fs.get('url_private_download'):
                                         r = requests.get(
                                             fs.get('url_private_download'),
-                                            headers={
-                                                "Authorization": SLACK_TOKEN
-                                            },
+                                            headers=headers,
                                             allow_redirects=True
                                         )
                                         if r.status_code == 200:
