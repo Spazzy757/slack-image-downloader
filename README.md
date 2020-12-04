@@ -25,7 +25,7 @@ docker run --rm  \
 
 There is a couple of env variables that are available for configuration
 
-**SLACK_TOKEN** - The authorization token is that will be used to make the api requests 
-**DAYS**[default:365] - Number of days back to search for images
-**WRITE_DIR**[default:images/] - The directory to write to
-**SLACK_BASE_URL**[default:https://slack.com/api] - The api for slack
+* **SLACK_TOKEN** - The authorization token is that will be used to make the api requests 
+* **DAYS**[default:365] - Number of days back to search for images
+* **WRITE_DIR**[default:images/] - The directory to write to
+* **SLACK_BASE_URL**[default:https://slack.com/api] - The api for slack
