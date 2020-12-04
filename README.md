@@ -18,6 +18,8 @@ docker run --rm  \
     -e SLACK_TOKEN=xxxxxxxxx \
     -e DAYS=365 \
     -e WRITE_DIR=images/ \
+    -e CHANNEL_TYPE=private_channel \
+    -e CHANNEL_NAME=announcements \
     slack-downloader
 ```
 
@@ -29,3 +31,5 @@ There is a couple of env variables that are available for configuration
 * **DAYS**[default:365] - Number of days back to search for images
 * **WRITE_DIR**[default:images/] - The directory to write to
 * **SLACK_BASE_URL**[default:https://slack.com/api] - The api for slack
+* **CHANNEL_TYPE** - either `public_channel` or `private_channel`
+* **CHANNEL_NAME** - The name of the channel to get the images from 
