@@ -19,7 +19,7 @@ docker run --rm  \
     -e DAYS=365 \
     -e WRITE_DIR=images/ \
     slack-downloader
-``**
+```
 
 ## Environment
 
